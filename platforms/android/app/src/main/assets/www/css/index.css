@@ -1,0 +1,20 @@
+#login-section {
+	padding: 3% 5%;
+}
+
+form>* {
+	margin: 1rem 0;
+}
+
+
+.form-warning {
+	color: red;
+	display: block;
+	text-align: center;
+}
+
+.form-success {
+	color: green;
+	display: block;
+	text-align: center;
+}
