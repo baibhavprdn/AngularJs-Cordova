@@ -10,13 +10,17 @@
             templateUrl: 'views/register.html',
             controller: 'loginController'
          })
+         .when('/dashboard', {
+            templateUrl: 'views/dashboard.html',
+            controller: 'loginController'
+         })
          .otherwise({
             redirectTo: 'views/login.html',
             controller: 'loginController'
          });
    }
 
-   function loginControllerFunction($scope) {
+   function loginControllerFunction($scope, $location) {
       $scope.user = [];
       var fileData = [];
 
@@ -48,7 +52,27 @@
       };
 
       $scope.loginUser = function () {
-         console.log("logged in user");
+         var cb = function (data) {
+            fileData = data;
+            if (fileData.every(function (element) {
+                  return element.email !== $scope.appUsers.email ? true : false;
+               })) {
+               alert("Incorrect Username");
+            } else {
+               fileData.forEach(function (element) {
+                  if (element.email === $scope.appUsers.email) {
+                     if (element.password === $scope.appUsers.password) {
+                        console.log("welcome " + element.email);
+                        $location.path('/dashboard');
+                     } else {
+                        alert("Incorrect Password");
+                     }
+                  }
+               });
+            }
+
+         };
+         readFromFile('userList.json', cb);
       };
    }
 
@@ -136,8 +160,8 @@
       configRoutes($routeProvider);
    }]);
 
-   loginApp.controller('loginController', ['$scope', function ($scope) {
-      loginControllerFunction($scope);
+   loginApp.controller('loginController', ['$scope', '$location', function ($scope, $location) {
+      loginControllerFunction($scope, $location);
    }]);
 
    document.addEventListener('deviceready', onDeviceReady, false);
