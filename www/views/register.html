@@ -12,7 +12,11 @@
 	<input class="form-control" type="email" placeholder="Enter Email Address" ng-model="newuser.email" name="useremail"
 		ng-required="true">
 	<div ng-show="registerForm.useremail.$touched && registerForm.useremail.$invalid">
-		<small class="form-warning">Enter a valid email</small>
+		<small class=" form-warning">Enter a valid email</small>
+	</div>
+
+	<div ng-show="isRegistered">
+		<small class="form-warning">Email already registered</small>
 	</div>
 	<div ng-show="registerForm.useremail.$touched && registerForm.useremail.$valid">
 		<small class="form-success">Email Valid</small>

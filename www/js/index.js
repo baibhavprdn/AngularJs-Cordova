@@ -18,18 +18,30 @@
 
    function loginControllerFunction($scope) {
       $scope.user = [];
+      var fileData = [];
+
       $scope.registerUser = function () {
-         $scope.user.push({
-            name: $scope.newuser.name,
-            email: $scope.newuser.email,
-            password: $scope.newuser.password
-         });
-         console.log($scope.user);
-         writeToFile('userList.json', $scope.user);
 
-         var fileData = readFromFile('userList.json');
+         var cb = function (data) {
+            fileData = data;
+            fileData.forEach(function (element) {
+               if (element.email == $scope.newuser.email) {
+                  $scope.isRegistered = true;
+               } else {
+                  $scope.user.push({
+                     name: $scope.newuser.name,
+                     email: $scope.newuser.email,
+                     password: $scope.newuser.password
+                  });
+               }
+            });
 
-         console.log(fileData);
+            writeToFile('userList.json', $scope.user);
+         };
+         readFromFile('userList.json', cb);
+         // console.log($scope.user);
+         // var fileData = readFromFile('userList.json');
+         // console.log(fileData);
       };
 
       $scope.loginUser = function () {
@@ -62,10 +74,10 @@
             break;
       }
 
-      console.log('Error (' + fileName + '): ' + msg)
+      console.log('Error (' + fileName + '): ' + msg);
    };
 
-   function readFromFile(fileName) {
+   function readFromFile(fileName, cb) {
       var pathToFile = cordova.file.dataDirectory + fileName;
       window.resolveLocalFileSystemURL(
          pathToFile,
@@ -74,10 +86,10 @@
                var reader = new FileReader();
 
                reader.onloadend = function (e) {
-                  // cb(JSON.parse(this.result));
-                  console.log('Text is: ' + this.result);
+                  cb(JSON.parse(this.result));
+                  // cb(this.result);
+                  // console.log('Text is: ' + this.result);
                };
-
                reader.readAsText(file);
             }, errorHandler.bind(null, fileName));
          },
@@ -104,7 +116,7 @@
                   type: 'text/plain'
                });
                fileWriter.write(blob);
-               readFromFile('userList.json');
+               // readFromFile('userList.json');
             }, errorHandler.bind(null, fileName));
          }, errorHandler.bind(null, fileName));
       }, errorHandler.bind(null, fileName));
