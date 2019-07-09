@@ -32,6 +32,24 @@
 
          var cb = function (data) {
             fileData = data;
+<<<<<<< HEAD
+=======
+            console.log(fileData);
+
+            if (fileData.every(function (element) {
+                  return element.email !== $scope.newuser.email ? true : false;
+               })) {
+               $scope.user.push({
+                  name: $scope.newuser.name,
+                  email: $scope.newuser.email,
+                  password: $scope.newuser.password
+               });
+            } else {
+               $scope.isRegistered = true;
+            }
+
+            writeToFile('userList.json', $scope.user);
+>>>>>>> simplified-rw
          };
 
          // var cb = function (data) {
