@@ -21,20 +21,21 @@
       var fileData = [];
 
       $scope.registerUser = function () {
-
          var cb = function (data) {
             fileData = data;
-            fileData.forEach(function (element) {
-               if (element.email == $scope.newuser.email) {
-                  $scope.isRegistered = true;
-               } else {
-                  $scope.user.push({
-                     name: $scope.newuser.name,
-                     email: $scope.newuser.email,
-                     password: $scope.newuser.password
-                  });
-               }
-            });
+            console.log(fileData);
+
+            if (fileData.every(function (element) {
+                  return element.email !== $scope.newuser.email ? true : false;
+               })) {
+               $scope.user.push({
+                  name: $scope.newuser.name,
+                  email: $scope.newuser.email,
+                  password: $scope.newuser.password
+               });
+            } else {
+               $scope.isRegistered = true;
+            }
 
             writeToFile('userList.json', $scope.user);
          };
