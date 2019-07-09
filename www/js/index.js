@@ -22,23 +22,38 @@
 
       $scope.registerUser = function () {
 
+         $scope.user.push({
+            name: $scope.newuser.name,
+            email: $scope.newuser.email,
+            password: $scope.newuser.password
+         });
+
+         writeToFile('userList.json', $scope.user);
+
          var cb = function (data) {
             fileData = data;
-            fileData.forEach(function (element) {
-               if (element.email == $scope.newuser.email) {
-                  $scope.isRegistered = true;
-               } else {
-                  $scope.user.push({
-                     name: $scope.newuser.name,
-                     email: $scope.newuser.email,
-                     password: $scope.newuser.password
-                  });
-               }
-            });
-
-            writeToFile('userList.json', $scope.user);
          };
+
+         // var cb = function (data) {
+         //    fileData = data;
+         //    console.log(fileData);
+         //    fileData.forEach(function (element) {
+         //       if (element.email == $scope.newuser.email) {
+         //          $scope.isRegistered = true;
+         //       } else {
+         //          $scope.user.push({
+         //             name: $scope.newuser.name,
+         //             email: $scope.newuser.email,
+         //             password: $scope.newuser.password
+         //          });
+         //       }
+         //    });
+
+         //    writeToFile('userList.json', $scope.user);
+         // };
          readFromFile('userList.json', cb);
+         console.log(fileData);
+
          // console.log($scope.user);
          // var fileData = readFromFile('userList.json');
          // console.log(fileData);
