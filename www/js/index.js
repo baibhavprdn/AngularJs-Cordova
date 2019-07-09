@@ -22,7 +22,8 @@
 
          $scope.registerUser = function () {
             <<
-            << << < HEAD
+            <<
+            << < HEAD
 
             $scope.user.push({
                name: $scope.newuser.name,
