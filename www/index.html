@@ -8,22 +8,25 @@
     <meta name="msapplication-tap-highlight" content="no">
     <meta name="viewport" content="initial-scale=1, width=device-width, viewport-fit=cover">
 
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script src="js/lib/angular.js"></script>
     <script src="js/lib/angular-route.js"></script>
+
+    <!-- angular material -->
+    <script src="js/lib/angular-animate.min.js"></script>
+    <script src="js/lib/angular-aria.min.js"></script>
+    <script src="js/lib/angular-messages.min.js"></script>
+    <script src="js/lib/angular-material.min.js"></script>
+
     <title>Cordova Login App</title>
 </head>
 
 <body>
-
     <div ng-include="'header.html'"></div>
-
     <div id="login-section">
         <div ng-view=""></div>
     </div>
-
-    <script src="js/lib/bootstrap.min.js"></script>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>
 </body>

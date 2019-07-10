@@ -1,8 +1,30 @@
- <h3>Login Page</h3>
- <form ng-submit="loginUser()" name="loginForm" novalidate>
- 	<input class="form-control" type="email" name="email" ng-model="appUsers.email"
- 		placeholder="Enter your email address">
- 	<input class="form-control" type="password" name="password" ng-model="appUsers.password" placeholder="Password">
+<!-- <h3>Login Page</h3>
+<form ng-submit="loginUser()" name="loginForm" class="custom-form" novalidate>
+	<input class="form-control" type="email" name="email" ng-model="appUsers.email"
+		placeholder="Enter your email address">
+	<input class="form-control" type="password" name="password" ng-model="appUsers.password" placeholder="Password">
 
- 	<button type="Submit" class="btn btn-primary">Login</button>
- </form>
+	<button type="Submit" class="btn btn-primary">Login</button>
+</form> -->
+
+<form id="login-form" name="loginForm" class="custom-form" ng-submit="loginUser()" novalidate>
+	<md-card class="registration-login-wrapper">
+		<h3>Login</h3>
+		<md-input-container>
+			<label>Email</label>
+			<input type="email" ng-model="appUsers.email" name="email" required>
+			<div ng-messages="loginForm.email.$error">
+				<div ng-message="required">Field is compulsory</div>
+			</div>
+		</md-input-container>
+
+		<md-input-container>
+			<label>Password</label>
+			<input type="password" ng-model="appUsers.password" name="password" required>
+			<div ng-messages="loginForm.password.$error">
+				<div ng-message="required">Field is compulsory</div>
+			</div>
+		</md-input-container>
+		<md-button class="md-raised md-primary" type="submit">Login</md-button>
+	</md-card>
+</form>

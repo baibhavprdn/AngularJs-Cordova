@@ -1,11 +1,14 @@
-#login-section {
+/* #login-section {
 	padding: 3% 5%;
-}
+} */
 
 form>* {
 	margin: 1rem 0;
 }
 
+#login-section {
+	padding: 4%;
+}
 
 .form-warning {
 	color: red;
@@ -17,4 +20,59 @@ form>* {
 	color: green;
 	display: block;
 	text-align: center;
+}
+
+main[ng-view] {
+	height: 100%;
+}
+
+.md-toolbar-tools {
+	display: flex;
+	justify-content: space-between;
+}
+
+ul#main-navbar {
+	display: flex;
+	list-style-type: none;
+}
+
+.registration-login-wrapper {
+	padding: 5%;
+}
+
+@media (min-width:768px) {
+	.registration-login-wrapper {
+		width: 40%;
+	}
+}
+
+md-card h3 {
+	text-align: center;
+}
+
+/* .custom-form {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+} */
+
+.dashboard-container {
+	display: flex;
+	height: 100%;
+}
+
+md-list {
+	padding: 0;
+}
+
+md-list-item {
+	padding: 0 !important;
+}
+
+md-list-item button.md-button {
+	margin: 0;
+	width: 100%;
+	display: flex;
+	padding: 0 5%;
+	border-bottom: 1px solid #ddd;
 }

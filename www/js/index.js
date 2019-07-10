@@ -15,8 +15,7 @@
             controller: 'loginController'
          })
          .otherwise({
-            redirectTo: 'views/login.html',
-            controller: 'loginController'
+            redirectTo: '/login'
          });
    }
 
@@ -42,7 +41,9 @@
             }
 
             writeToFile('userList.json', $scope.user);
-
+            alert("Registration Successful!");
+            console.log("welcome" + $scope.newuser.email);
+            $location.path('/dashboard');
          };
          readFromFile('userList.json', cb);
       };
@@ -66,7 +67,6 @@
                   }
                });
             }
-
          };
          readFromFile('userList.json', cb);
       };
@@ -150,7 +150,7 @@
       //need to delay bootstrapping angular until deviceready fires
    }
 
-   var loginApp = angular.module('loginApp', ['ngRoute']);
+   var loginApp = angular.module('loginApp', ['ngRoute', 'ngMaterial']);
 
    loginApp.config(['$routeProvider', function ($routeProvider) {
       configRoutes($routeProvider);
