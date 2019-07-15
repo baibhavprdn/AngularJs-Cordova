@@ -1,22 +1,24 @@
 (function () {
 
-   function configRoutes($routeProvider) {
-      $routeProvider
-         .when('/login', {
+   function configRoutes($stateProvider, $urlRouterProvider) {
+      $stateProvider
+         .state('login', {
+            url: '/login',
             templateUrl: 'views/login.html',
             controller: 'loginController'
          })
-         .when('/register', {
+         .state('register', {
+            url: '/register',
             templateUrl: 'views/register.html',
             controller: 'loginController'
          })
-         .when('/dashboard', {
+         .state('dashboard', {
+            url: '/dashboard',
             templateUrl: 'views/dashboard.html',
             controller: 'loginController'
-         })
-         .otherwise({
-            redirectTo: '/login'
          });
+      $urlRouterProvider.otherwise('/login');
+
    }
 
    function loginControllerFunction($scope, $location) {
@@ -150,10 +152,10 @@
       //need to delay bootstrapping angular until deviceready fires
    }
 
-   var loginApp = angular.module('loginApp', ['ngRoute', 'ngMaterial']);
+   var loginApp = angular.module('loginApp', ['ngMaterial', 'ui.router']);
 
-   loginApp.config(['$routeProvider', function ($routeProvider) {
-      configRoutes($routeProvider);
+   loginApp.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+      configRoutes($stateProvider, $urlRouterProvider);
    }]);
 
    loginApp.controller('loginController', ['$scope', '$location', function ($scope, $location) {
@@ -165,7 +167,7 @@
          $mdSidenav('left').toggle();
       };
 
-      var imagePath = 'img/list/60.jpeg';
+      var imagePath = 'img/logo.png';
       $scope.phones = [{
             type: 'Home',
             number: '(555) 251-1234',

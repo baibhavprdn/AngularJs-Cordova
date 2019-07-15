@@ -18,6 +18,7 @@
     "angular-aria": "^1.7.8",
     "angular-material": "^1.1.19",
     "angular-messages": "^1.7.8",
+    "angular-ui-router": "^1.0.22",
     "cordova-android": "^8.0.0",
     "cordova-plugin-file": "^6.0.1"
   },
