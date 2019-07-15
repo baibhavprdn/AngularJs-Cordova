@@ -15,7 +15,19 @@
          .state('dashboard', {
             url: '/dashboard',
             templateUrl: 'views/dashboard.html',
-            controller: 'loginController'
+            controller: 'dashboardController'
+         })
+         .state('userdetails', {
+            url: '/userdetails',
+            templateUrl: 'views/userdetails.html',
+            controller: 'userdetailsController',
+            params: {
+               face: null,
+               what: '',
+               who: '',
+               when: '',
+               notes: ''
+            }
          });
       $urlRouterProvider.otherwise('/login');
 
@@ -72,6 +84,65 @@
          };
          readFromFile('userList.json', cb);
       };
+   }
+
+   function dashboardControllerFunction($scope, $mdSidenav, $location, $state) {
+
+      $scope.openLeftMenu = function () {
+         $mdSidenav('left').toggle();
+      };
+
+      // $scope.selectedUser = {};
+
+      $scope.userDetails = function (item) {
+
+         // $scope.selectedUser = item;
+         // console.log($scope.selectedUser);
+         $state.go('userdetails', item);
+      };
+
+      var imagePath = 'img/logo.png';
+      $scope.todos = [{
+            face: imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         },
+         {
+            face: imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         },
+         {
+            face: imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         },
+         {
+            face: imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         },
+         {
+            face: imagePath,
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         }
+      ];
+   }
+
+   function userdetailsControllerFunction($scope, $stateParams) {
+      $scope.selectedUser = {};
+      $scope.selectedUser = $stateParams;
    }
 
    //cordova 
@@ -162,80 +233,13 @@
       loginControllerFunction($scope, $location);
    }]);
 
-   loginApp.controller('dashboardController', function ($scope, $mdSidenav) {
-      $scope.openLeftMenu = function () {
-         $mdSidenav('left').toggle();
-      };
+   loginApp.controller('dashboardController', ['$scope', '$mdSidenav', '$location', '$state', function ($scope, $mdSidenav, $location, $state) {
+      dashboardControllerFunction($scope, $mdSidenav, $location, $state);
+   }]);
 
-      var imagePath = 'img/logo.png';
-      $scope.phones = [{
-            type: 'Home',
-            number: '(555) 251-1234',
-            options: {
-               icon: 'communication:phone'
-            }
-         },
-         {
-            type: 'Cell',
-            number: '(555) 786-9841',
-            options: {
-               icon: 'communication:phone',
-               avatarIcon: true
-            }
-         },
-         {
-            type: 'Office',
-            number: '(555) 314-1592',
-            options: {
-               face: imagePath
-            }
-         },
-         {
-            type: 'Offset',
-            number: '(555) 192-2010',
-            options: {
-               offset: true,
-               actionIcon: 'communication:phone'
-            }
-         }
-      ];
-      $scope.todos = [{
-            face: imagePath,
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         },
-         {
-            face: imagePath,
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         },
-         {
-            face: imagePath,
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         },
-         {
-            face: imagePath,
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         },
-         {
-            face: imagePath,
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         }
-      ];
-   });
+   loginApp.controller('userdetailsController', ['$scope', '$stateParams', function ($scope, $stateParams) {
+      userdetailsControllerFunction($scope, $stateParams);
+   }]);
 
    document.addEventListener('deviceready', onDeviceReady, false);
 })();
