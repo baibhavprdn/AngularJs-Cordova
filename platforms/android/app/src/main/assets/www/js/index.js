@@ -86,63 +86,72 @@
       };
    }
 
-   function dashboardControllerFunction($scope, $mdSidenav, $location, $state) {
+   function dashboardControllerFunction($scope, $mdSidenav, $state) {
 
       $scope.openLeftMenu = function () {
          $mdSidenav('left').toggle();
       };
 
-      // $scope.selectedUser = {};
-
       $scope.userDetails = function (item) {
-
-         // $scope.selectedUser = item;
-         // console.log($scope.selectedUser);
          $state.go('userdetails', item);
       };
 
-      var imagePath = 'img/logo.png';
       $scope.todos = [{
-            face: imagePath,
+            face: 'img/user.jpg',
             what: 'Brunch this weekend?',
             who: 'Min Li Chan',
             when: '3:08PM',
             notes: " I'll be in your neighborhood doing errands"
          },
          {
-            face: imagePath,
+            face: 'img/user.jpg',
+            what: 'You free this friday?',
+            who: 'Jackie Chan',
+            when: '3:08PM',
+            notes: "You still have to treat me to dinner"
+         },
+         {
+            face: 'img/user.jpg',
             what: 'Brunch this weekend?',
             who: 'Min Li Chan',
             when: '3:08PM',
             notes: " I'll be in your neighborhood doing errands"
          },
          {
-            face: imagePath,
+            face: 'img/user.jpg',
             what: 'Brunch this weekend?',
             who: 'Min Li Chan',
             when: '3:08PM',
             notes: " I'll be in your neighborhood doing errands"
          },
          {
-            face: imagePath,
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         },
-         {
-            face: imagePath,
+            face: 'img/user.jpg',
             what: 'Brunch this weekend?',
             who: 'Min Li Chan',
             when: '3:08PM',
             notes: " I'll be in your neighborhood doing errands"
          }
       ];
+
+      // $http.get('data/usercontacts.json').then(function (response) {
+      //       $scope.todos = response.data;
+      //       //actual data stored in property array called 'data' in the response object
+      //    },
+      //    function (error) {
+      //       console.log('failed due to ' + error);
+      //    });
+
+      writeToFile('contactInfo.json', $scope.todos);
+      console.log($scope.todos);
    }
 
    function userdetailsControllerFunction($scope, $stateParams) {
       $scope.selectedUser = {};
       $scope.selectedUser = $stateParams;
+
+      $scope.editProfile = function () {
+         console.log("Editing profile");
+      };
    }
 
    //cordova 
@@ -233,8 +242,8 @@
       loginControllerFunction($scope, $location);
    }]);
 
-   loginApp.controller('dashboardController', ['$scope', '$mdSidenav', '$location', '$state', function ($scope, $mdSidenav, $location, $state) {
-      dashboardControllerFunction($scope, $mdSidenav, $location, $state);
+   loginApp.controller('dashboardController', ['$scope', '$mdSidenav', '$state', function ($scope, $mdSidenav, $state) {
+      dashboardControllerFunction($scope, $mdSidenav, $state);
    }]);
 
    loginApp.controller('userdetailsController', ['$scope', '$stateParams', function ($scope, $stateParams) {

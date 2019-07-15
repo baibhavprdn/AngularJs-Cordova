@@ -1,2 +1,12 @@
-<h1>userdetails page</h1>
-<h2>{{selectedUser.who}}</h2>
+<div class="userdetail-container">
+	<div class="profile-header">
+		<h2>User Profile</h2>
+		<md-button ng-click="editProfile()">Edit Contact Detail</md-button>
+	</div>
+	<h2>{{selectedUser.who}}</h2>
+	<div class="profile-pic">
+		<img src="{{selectedUser.face}}" alt="User Profile Pic" class="userdetail-pic">
+		<h3>{{selectedUser.what}}</h3>
+		<p>{{selectedUser.notes}}</p>
+	</div>
+</div>

@@ -13,7 +13,6 @@
 			<md-button ng-click="openLeftMenu()">Open Side Nav</md-button>
 			<md-content>
 				<md-list flex="">
-					<md-subheader>3 line item (with hover)</md-subheader>
 					<md-list-item class="md-3-line" ng-repeat="item in todos" ng-click="userDetails(item)">
 						<img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}">
 						<div class="md-list-item-text" layout="column">

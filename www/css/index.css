@@ -112,3 +112,33 @@ md-list-item button.md-button {
 	background-color: #fff;
 	border: none;
 }
+
+.userdetail-container {
+	display: block;
+	padding: 3%;
+}
+
+.userdetail-container .profile-header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.userdetail-pic {
+	max-width: 100%;
+	display: inline-block;
+	height: auto;
+}
+
+.userdetail-container .profile-pic {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr;
+}
+
+.profile-pic h3 {
+	padding: 0 3%;
+}
+
+.profile-pic p {
+	grid-column: span 2;
+}
