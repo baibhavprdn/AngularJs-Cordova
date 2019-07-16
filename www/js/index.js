@@ -167,25 +167,41 @@
    }
 
    function editcontactControllerFunction($scope, $stateParams) {
-      //editing users
-      $scope.contacts = [];
+      $scope.editedContact = {};
 
       //getting index of object to edit
       var contacts = [];
+      var matchedIndex;
       var cb = function (data) {
          contacts = data;
+         matchedIndex = checkmatch(contacts);
+         console.log(matchedIndex);
       };
 
       function checkmatch(contacts) {
-         for (i = 0; i <= contacts.length; i++) {
-            // console.log(contacts[i].who);
-            if (contacts[i].who === $stateParams.who)
-               return i;
+         var num;
+         for (i = 0; i < contacts.length; i++) {
+            if (contacts[i].who === $stateParams.who) {
+               num = i;
+            }
          }
+         return num;
       }
 
+      $scope.submitEdit = function () {
+         console.log("Submitted successfully");
+      };
+
       readFromFile('contactInfo.json', cb);
-      var matchedIndex = checkmatch(contacts);
+
+
+      // $scope.retrieveImage = function () {
+      //    $scope.editedContact.face = navigator.camera.getPicture(onSuccessfulRetrieve, onFail, {
+      //       quality: 100,
+      //       sourceType: Camera.PictureSourceType.PHOTOLIBRARY
+      //    });
+      // };
+      console.log($scope.editedContact);
    }
 
    //cordova 

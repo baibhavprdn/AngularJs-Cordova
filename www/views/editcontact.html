@@ -1,3 +1,27 @@
 <div class="editcontact-container">
-	<h3>edit contact details</h3>
+	<h3>Edit contact details</h3>
+
+	<form id="editcontacts-form" name="editcontactsForm" class="custom-form" ng-submit="submitEdit()" novalidate>
+		<md-card class="editcontacts-wrapper">
+			<md-input-container>
+				<label>Contact Name</label>
+				<input type="text" ng-model="editedContact.who" name="name" required>
+			</md-input-container>
+			<md-input-container>
+				<label>Select photo</label>
+				<input type="file" name="file" ng-model="editedContact.face" required>
+			</md-input-container>
+			<md-input-container>
+				<label>Email</label>
+				<input type="email" ng-model="editedContact.email" name="email" required>
+			</md-input-container>
+			<md-input-container>
+				<label>Phone Number</label>
+				<input type="number" ng-model="editedContact.number" name="number" required>
+			</md-input-container>
+
+			<md-button class="md-raised md-primary" type="submit">Save Edit</md-button>
+		</md-card>
+	</form>
+
 </div>
