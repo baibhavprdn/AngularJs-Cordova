@@ -28,9 +28,20 @@
                when: '',
                notes: ''
             }
+         })
+         .state('editcontact', {
+            url: '/editcontact',
+            templateUrl: 'views/editcontact.html',
+            controller: 'editcontactController',
+            params: {
+               face: null,
+               what: '',
+               who: '',
+               when: '',
+               notes: ''
+            }
          });
       $urlRouterProvider.otherwise('/login');
-
    }
 
    function loginControllerFunction($scope, $location) {
@@ -145,29 +156,36 @@
       // console.log($scope.todos);
    }
 
-   function userdetailsControllerFunction($scope, $stateParams) {
+   function userdetailsControllerFunction($scope, $stateParams, $state) {
+      //switching to userdetails view
       $scope.selectedUser = {};
       $scope.selectedUser = $stateParams;
 
+      $scope.editContactDetails = function () {
+         $state.go('editcontact', $scope.selectedUser);
+      };
+   }
+
+   function editcontactControllerFunction($scope, $stateParams) {
       //editing users
       $scope.contacts = [];
 
-      $scope.editProfile = function () {
-
-         function checkmatch(element) {
-            return (element.who === $scope.selectedUser.who);
-         }
-
-         //getting index of object to edit
-         var contacts = [];
-         var cb = function (data) {
-            contacts = data;
-         };
-         readFromFile('contactInfo.json', cb);
-         var matchedIndex = contacts.findIndex(checkmatch);
-
-
+      //getting index of object to edit
+      var contacts = [];
+      var cb = function (data) {
+         contacts = data;
       };
+
+      function checkmatch(contacts) {
+         for (i = 0; i <= contacts.length; i++) {
+            // console.log(contacts[i].who);
+            if (contacts[i].who === $stateParams.who)
+               return i;
+         }
+      }
+
+      readFromFile('contactInfo.json', cb);
+      var matchedIndex = checkmatch(contacts);
    }
 
    //cordova 
@@ -262,9 +280,12 @@
       dashboardControllerFunction($scope, $mdSidenav, $state);
    }]);
 
-   loginApp.controller('userdetailsController', ['$scope', '$stateParams', function ($scope, $stateParams) {
-      userdetailsControllerFunction($scope, $stateParams);
+   loginApp.controller('userdetailsController', ['$scope', '$stateParams', '$state', function ($scope, $stateParams, $state) {
+      userdetailsControllerFunction($scope, $stateParams, $state);
    }]);
 
+   loginApp.controller('editcontactController', ['$scope', '$stateParams', function ($scope, $stateParams) {
+      editcontactControllerFunction($scope, $stateParams);
+   }]);
    document.addEventListener('deviceready', onDeviceReady, false);
 })();
