@@ -65,13 +65,13 @@
                $scope.isRegistered = true;
             }
 
-            writeToFile('userList.json', $scope.user);
-            alert("Registration Successful!");
-            console.log("welcome" + $scope.newuser.email);
+            var cb = function () {
+               alert("Registration Successful!");
+               console.log("welcome" + $scope.newuser.email);
+               $location.path('/dashboard');
+            };
+            writeToFile('userList.json', $scope.user, cb);
 
-
-
-            $location.path('/dashboard');
          };
          readFromFile('userList.json', cb);
       };
@@ -137,7 +137,10 @@
          }
       ];
 
-      writeToFile('contactInfo.json', contactData);
+      var cb = function () {
+         console.log('contactInfo loaded');
+      };
+      writeToFile('contactInfo.json', contactData, cb);
       // console.log($scope.todos);
    }
 
@@ -196,18 +199,16 @@
          contacts[matchedIndex].email = $scope.editedContact.email;
          contacts[matchedIndex].number = $scope.editedContact.number;
 
-         writeToFile('contactInfo.json', contacts);
+         var cb = function () {
+            console.log('completed edit of contactInfo');
+            $state.go('dashboard');
+         };
+         writeToFile('contactInfo.json', contacts, cb);
 
-         $state.go('dashboard');
+
       };
 
       readFromFile('contactInfo.json', cb);
-      // $scope.retrieveImage = function () {
-      //    $scope.editedContact.face = navigator.camera.getPicture(onSuccessfulRetrieve, onFail, {
-      //       quality: 100,
-      //       sourceType: Camera.PictureSourceType.PHOTOLIBRARY
-      //    });
-      // };
    }
 
    //cordova 
@@ -258,7 +259,7 @@
       );
    }
 
-   function writeToFile(fileName, data) {
+   function writeToFile(fileName, data, cb) {
       data = JSON.stringify(data, null, '\t');
       window.resolveLocalFileSystemURL(cordova.file.dataDirectory, function (directoryEntry) {
          directoryEntry.getFile(fileName, {
@@ -267,6 +268,7 @@
             fileEntry.createWriter(function (fileWriter) {
                fileWriter.onwriteend = function () {
                   console.log("write of file " + fileName + " completed");
+                  cb();
                };
 
                fileWriter.onerror = function (e) {
