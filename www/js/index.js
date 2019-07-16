@@ -190,6 +190,13 @@
 
       $scope.submitEdit = function () {
          console.log("Submitted successfully");
+         contacts[matchedIndex].who = $scope.editedContact.who;
+         contacts[matchedIndex].email = $scope.editedContact.email;
+         contacts[matchedIndex].number = $scope.editedContact.number;
+
+         console.log(contacts[matchedIndex]);
+
+         writeToFile('contactInfo.json', contacts);
       };
 
       readFromFile('contactInfo.json', cb);
