@@ -96,6 +96,10 @@ md-list-item button.md-button {
 	background-color: #fff;
 }
 
+#dashboard-container md-content h3 {
+	padding: 0 3%;
+}
+
 [ng-view] {
 	height: 100%;
 }

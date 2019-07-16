@@ -68,6 +68,9 @@
             writeToFile('userList.json', $scope.user);
             alert("Registration Successful!");
             console.log("welcome" + $scope.newuser.email);
+
+
+
             $location.path('/dashboard');
          };
          readFromFile('userList.json', cb);
@@ -95,6 +98,47 @@
          };
          readFromFile('userList.json', cb);
       };
+
+      //adding random data
+      contactData = [{
+            face: 'img/user.jpg',
+            what: 'Brunch this weekend?',
+            who: 'Min Li Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         },
+         {
+            face: 'img/user4.jpg',
+            what: 'You free this friday?',
+            who: 'Jackie Chan',
+            when: '3:08PM',
+            notes: "You still have to treat me to dinner"
+         },
+         {
+            face: 'img/user2.jpg',
+            what: 'Brunch this weekend?',
+            who: 'John Doe',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         },
+         {
+            face: 'img/user3.jpg',
+            what: 'Brunch this weekend?',
+            who: 'Jaime Lee Curtis',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         },
+         {
+            face: 'img/user5.jpg',
+            what: 'Brunch this weekend?',
+            who: 'Hoe yi Chan',
+            when: '3:08PM',
+            notes: " I'll be in your neighborhood doing errands"
+         }
+      ];
+
+      writeToFile('contactInfo.json', contactData);
+      // console.log($scope.todos);
    }
 
    function dashboardControllerFunction($scope, $mdSidenav, $state) {
@@ -107,53 +151,11 @@
          $state.go('userdetails', item);
       };
 
-      $scope.todos = [{
-            face: 'img/user.jpg',
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         },
-         {
-            face: 'img/user.jpg',
-            what: 'You free this friday?',
-            who: 'Jackie Chan',
-            when: '3:08PM',
-            notes: "You still have to treat me to dinner"
-         },
-         {
-            face: 'img/user.jpg',
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         },
-         {
-            face: 'img/user.jpg',
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         },
-         {
-            face: 'img/user.jpg',
-            what: 'Brunch this weekend?',
-            who: 'Min Li Chan',
-            when: '3:08PM',
-            notes: " I'll be in your neighborhood doing errands"
-         }
-      ];
-
-      // $http.get('data/usercontacts.json').then(function (response) {
-      //       $scope.todos = response.data;
-      //       //actual data stored in property array called 'data' in the response object
-      //    },
-      //    function (error) {
-      //       console.log('failed due to ' + error);
-      //    });
-
-      writeToFile('contactInfo.json', $scope.todos);
-      // console.log($scope.todos);
+      $scope.todos = [];
+      var cb = function (data) {
+         $scope.todos = data;
+      };
+      readFromFile('contactInfo.json', cb);
    }
 
    function userdetailsControllerFunction($scope, $stateParams, $state) {
@@ -166,7 +168,7 @@
       };
    }
 
-   function editcontactControllerFunction($scope, $stateParams) {
+   function editcontactControllerFunction($scope, $stateParams, $state) {
       $scope.editedContact = {};
 
       //getting index of object to edit
@@ -194,21 +196,18 @@
          contacts[matchedIndex].email = $scope.editedContact.email;
          contacts[matchedIndex].number = $scope.editedContact.number;
 
-         console.log(contacts[matchedIndex]);
-
          writeToFile('contactInfo.json', contacts);
+
+         $state.go('dashboard');
       };
 
       readFromFile('contactInfo.json', cb);
-
-
       // $scope.retrieveImage = function () {
       //    $scope.editedContact.face = navigator.camera.getPicture(onSuccessfulRetrieve, onFail, {
       //       quality: 100,
       //       sourceType: Camera.PictureSourceType.PHOTOLIBRARY
       //    });
       // };
-      console.log($scope.editedContact);
    }
 
    //cordova 
@@ -307,8 +306,8 @@
       userdetailsControllerFunction($scope, $stateParams, $state);
    }]);
 
-   loginApp.controller('editcontactController', ['$scope', '$stateParams', function ($scope, $stateParams) {
-      editcontactControllerFunction($scope, $stateParams);
+   loginApp.controller('editcontactController', ['$scope', '$stateParams', '$state', function ($scope, $stateParams, $state) {
+      editcontactControllerFunction($scope, $stateParams, $state);
    }]);
    document.addEventListener('deviceready', onDeviceReady, false);
 })();

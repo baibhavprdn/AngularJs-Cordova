@@ -1,8 +1,14 @@
+<div ng-include="'views/dashboardheader.html'"></div>
+
 <div id="dashboard-container">
 	<div layout="row">
 		<md-sidenav md-component-id="left" class="md-sidenav-left" md-whiteframe="1">
 			<md-list>
-				<md-list-item ng-click="null">Home</md-list-item>
+				<md-list-item ng-click="null">
+					<md-button href="#!/dashboard">
+						Home
+					</md-button>
+				</md-list-item>
 				<md-list-item ng-click="null">View Profile</md-list-item>
 				<md-list-item ng-click="null">Options</md-list-item>
 				<md-list-item ng-click="null">Settings</md-list-item>
@@ -10,8 +16,9 @@
 			</md-list>
 		</md-sidenav>
 		<md-content>
-			<md-button ng-click="openLeftMenu()">Open Side Nav</md-button>
+
 			<md-content>
+				<h3>Your Messages</h3>
 				<md-list flex="">
 					<md-list-item class="md-3-line" ng-repeat="item in todos" ng-click="userDetails(item)">
 						<img ng-src="{{item.face}}?{{$index}}" class="md-avatar" alt="{{item.who}}">
